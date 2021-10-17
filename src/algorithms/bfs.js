@@ -1,6 +1,5 @@
 import { findNeighbors } from "./utils";
 function bfs(src, grid) {
-  let cell = grid[src.row][src.col];
   console.log("BFSing");
   let size = grid[0].length * grid.length;
   const queue = []; // obj array
@@ -11,11 +10,11 @@ function bfs(src, grid) {
     visited[i] = false;
   }
   visited[src.id] = true;
-  orderedCells.push(cell);
-  queue.push(cell);
+  orderedCells.push(src);
+  queue.push(src);
   while (queue.length > 0) {
     let currCell = queue.shift(); // object, not number
-    const neighbors = findNeighbors(currCell, grid); // passing an object
+    const neighbors = findNeighbors(currCell, grid, 3); // passing an object, avoid type 3, avoid walls
     orderedCells.push(currCell);
     for (const cell of neighbors) {
       if (!visited[cell.id]) {

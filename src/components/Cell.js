@@ -8,8 +8,8 @@ const preventDragHandler = (e) => {
 const Cell = (props) => {
   return (
     <div
-      onMouseEnter={(event) => props.handleMouse(event, props)}
-      onMouseDown={(event) => props.handleMouse(event, props)}
+      onMouseEnter={(event) => props.handleMouseEnter(event, props)}
+      onMouseDown={(event) => props.handleMouseDown(event, props)}
       onDragStart={preventDragHandler}
       className={props.cellClass}
     ></div>

@@ -28,9 +28,9 @@ function aStar(src, dst, grid) {
       console.log("Found dst");
       return [orderedCells, cameFrom];
     }
-    const neighbors = findNeighbors(currCell, grid);
+    const neighbors = findNeighbors(currCell, grid, 3); // passing an object, avoid type 3, avoid walls
     for (const cell of neighbors) {
-      let tempScore = gScore[currCell.id] + 0.999;
+      let tempScore = gScore[currCell.id] + 1;
       if (tempScore < gScore[cell.id]) {
         cameFrom[cell.id] = currCell;
         gScore[cell.id] = tempScore;

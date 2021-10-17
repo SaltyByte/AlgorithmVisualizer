@@ -16,7 +16,7 @@ function dfs(src, grid) {
     orderedCells.push(currCell);
     if (!visited[currCell.id]) {
       visited[currCell.id] = true;
-      const neighbors = findNeighbors(currCell, grid); // passing an object
+      const neighbors = findNeighbors(currCell, grid, 3); // passing an object, avoid type 3, avoid walls
       for (const cell of neighbors) {
         if (!visited[cell.id]) {
           stack.push(cell);
