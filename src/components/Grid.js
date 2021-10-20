@@ -79,63 +79,71 @@ const Grid = forwardRef((props, ref) => {
     src.type = temp;
   };
 
-  function handleMouseDown(event, props) {
+  function handleMouseDown(event, cellProps) {
     // update if we drag start or end points
     if (
-      !clickedToMove &&
       event.buttons === 1 &&
-      (props.cell.type === 1 || props.cell.type === 2)
+      (cellProps.cell.type === 1 || cellProps.cell.type === 2)
     ) {
-      console.log("setting true");
       setClickedToMove(true);
-      setMovingCell(props.cell);
+      setMovingCell(cellProps.cell);
       // update if we add wall on down
     } else if (
       event.buttons === 1 &&
       !clickedToMove &&
-      (props.cell.type === 0 || props.cell.type === 99)
+      (cellProps.cell.type === 0 || cellProps.cell.type === 99) &&
+      !props.isRunning
     ) {
-      props.cell.type = 3;
+      cellProps.cell.type = 3;
     }
     // update if we delete wall with down
-    else if (event.buttons === 2 && props.cell.type === 3) {
-      props.cell.type = 99;
+    else if (
+      event.buttons === 2 &&
+      cellProps.cell.type === 3 &&
+      !props.isRunning
+    ) {
+      cellProps.cell.type = 99;
     }
     const newGrid = [...grid];
     setGrid(newGrid);
   }
 
-  function handleMouseUp(event, props) {
+  function handleMouseUp(event, cellProps) {
     if (clickedToMove) {
-      console.log("setting false");
       setClickedToMove(false);
     }
   }
 
-  function handleMouseEnter(event, props) {
+  function handleMouseEnter(event, cellProps) {
     // placing walls, type 99 for cell after being a wall, this is so the init animation wont be lots of walls deleted
     if (
       event.buttons === 1 &&
       !clickedToMove &&
-      (props.cell.type === 0 || props.cell.type === 99)
+      (cellProps.cell.type === 0 || cellProps.cell.type === 99) &&
+      !props.isRunning
     ) {
-      props.cell.type = 3;
+      cellProps.cell.type = 3;
     }
-    // deleting walls with right click, makeing it type 11 to handle the init animation
-    else if (event.buttons === 2 && props.cell.type === 3 && !clickedToMove) {
-      props.cell.type = 99;
+    // deleting walls with right click, making it type 99 to handle the init animation
+    else if (
+      event.buttons === 2 &&
+      cellProps.cell.type === 3 &&
+      !props.isRunning
+    ) {
+      cellProps.cell.type = 99;
     }
     // moving start and end cells
     else if (event.buttons === 1 && clickedToMove) {
-      swapCellsType(props.cell, movingCell);
-      setMovingCell(props.cell);
+      if (cellProps.cell.type === 99) cellProps.cell.type = 0;
+      swapCellsType(cellProps.cell, movingCell);
+      setMovingCell(cellProps.cell);
     }
     const newGrid = [...grid];
     setGrid(newGrid);
   }
   // this gets full wall grid and will delete walls, for dfs basicly
   const visualizeFullMazeBuild = async (orderedCells, speed) => {
-    console.log("generating dfs maze");
+    console.log("generating full wall maze");
     const newGrid = [...grid];
     setGrid(newGrid);
     for (const cell of orderedCells) {
@@ -150,7 +158,7 @@ const Grid = forwardRef((props, ref) => {
 
   // this gets empty grid and will fill with walls
   const visualizeEmptyMazeBuild = async (orderedCells, speed) => {
-    console.log("generating maze");
+    console.log("generating empty wall maze");
     for (const cell of orderedCells) {
       if (cell.type === 0 || cell.type === 99) {
         cell.type = 3;

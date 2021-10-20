@@ -49,6 +49,7 @@ const Header = (props) => {
           required
           value={selectedAlgo}
           onChange={handleAlgoSelectOnChange}
+          className="select"
         >
           <option value="" disabled hidden>
             Select Algorithm
@@ -70,6 +71,7 @@ const Header = (props) => {
           required
           value={selectedSpeed}
           onChange={handleSpeedSelectOnChange}
+          className={!props.isRunning ? "select" : "select invalid"}
         >
           <option className="option" value="2">
             Faster
@@ -84,7 +86,11 @@ const Header = (props) => {
             Slow
           </option>
         </select>
-        <select value={""} onChange={handleMazeSelectOnChange}>
+        <select
+          value={""}
+          onChange={handleMazeSelectOnChange}
+          className={!props.isRunning ? "select" : "select invalid"}
+        >
           <option value="" disabled hidden>
             Select Maze
           </option>
@@ -103,24 +109,24 @@ const Header = (props) => {
         </select>
       </div>
       <div>
-        <button onClick={props.reset} className="button-valid">
+        <button onClick={props.reset} className="button">
           Reset Grid
         </button>
         <button
-          className={!props.isRunning ? "button-valid" : "button-invalid"}
+          className={!props.isRunning ? "button" : "button invalid"}
           onClick={sendData}
         >
           Start Visualization
         </button>
         <button
           onClick={props.resetPath}
-          className={!props.isRunning ? "button-valid" : "button-invalid"}
+          className={!props.isRunning ? "button" : "button invalid"}
         >
           Reset Path
         </button>
         <button
           onClick={props.resetVisitedCells}
-          className={!props.isRunning ? "button-valid" : "button-invalid"}
+          className={!props.isRunning ? "button" : "button invalid"}
         >
           Reset Visited Cells
         </button>

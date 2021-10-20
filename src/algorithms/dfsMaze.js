@@ -59,22 +59,20 @@ function dfsMaze(grid, src, dst) {
       }
     }
   }
-  // let neighbors = findNeighbors(src, grid, 0); // passing an object, avoid type 0, regular cell
-  // if (neighbors.length === 4) {
-  //   console.log("in if");
-  //   console.log(neighbors);
-  //   let randInd = Math.floor(Math.random() * 3);
-  //   let randCell = neighbors[randInd];
-  //   orderedCells.push(randCell);
-  // }
-  // neighbors = findNeighbors(dst, grid, 0); // passing an object, avoid type 0, regular cell
-  // if (neighbors.length === 4) {
-  //   console.log("in if");
-  //   console.log(neighbors);
-  //   let randInd = Math.floor(Math.random() * 3);
-  //   let randCell = neighbors[randInd];
-  //   orderedCells.push(randCell);
-  // }
+  let neighbors = findNeighbors(src, grid, 0); // passing an object, avoid type 0, regular cell
+  if (neighbors.length === 4) {
+    console.log("in if");
+    let randInd = Math.floor(Math.random() * 3);
+    let randCell = neighbors[randInd];
+    orderedCells.push(randCell);
+  }
+  neighbors = findNeighbors(dst, grid, 0); // passing an object, avoid type 0, regular cell
+  if (neighbors.length === 4) {
+    console.log("in if");
+    let randInd = Math.floor(Math.random() * 3);
+    let randCell = neighbors[randInd];
+    orderedCells.push(randCell);
+  }
   return orderedCells;
 }
 
