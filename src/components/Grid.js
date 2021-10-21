@@ -186,9 +186,8 @@ const Grid = forwardRef((props, ref) => {
       return;
     }
     let parent = pred[dst.id]; // obj cell
+    console.log(parent);
     const path = [];
-    path.push(parent);
-    parent = pred[parent.id];
     while (parent !== undefined) {
       // loop to build path
       path.push(parent);
