@@ -1,8 +1,7 @@
-import { findNeighbors } from "./utils";
+import { findNeighbors, buildPath } from "./utils";
 
 function bi_bfs(src, dst, grid) {
   let size = grid[0].length * grid.length;
-
   const queueSrc = [];
   const queueDst = [];
   const visitedSrc = [];
@@ -10,19 +9,15 @@ function bi_bfs(src, dst, grid) {
   const predSrc = [];
   const predDst = [];
   const orderedCells = [];
-
   for (let i = 0; i < size; i++) {
     visitedSrc[i] = false;
     visitedDst[i] = false;
   }
-
   predSrc[src.id] = undefined;
   predDst[dst.id] = visitedSrc[src.id] = true;
   visitedDst[dst.id] = true;
-
   queueSrc.push(src);
   queueDst.push(dst);
-
   while (queueSrc.length > 0 && queueDst.length > 0) {
     if (queueSrc.length > 0) {
       let currCell = queueSrc.shift();
@@ -37,8 +32,8 @@ function bi_bfs(src, dst, grid) {
         if (visitedDst[cell.id]) {
           console.log("Found path src!");
           orderedCells.push(cell);
-          const pred = buildPath(cell, predSrc, predDst);
-          return [orderedCells, pred];
+          const path = buildPathFromTwoPreds(cell, predSrc, predDst, src, dst);
+          return [orderedCells, path];
         }
       }
       visitedSrc[currCell.id] = true;
@@ -56,8 +51,8 @@ function bi_bfs(src, dst, grid) {
         if (visitedSrc[cell.id]) {
           console.log("Found path dst!");
           orderedCells.push(cell);
-          const pred = buildPath(cell, predSrc, predDst);
-          return [orderedCells, pred];
+          const path = buildPathFromTwoPreds(cell, predSrc, predDst, src, dst);
+          return [orderedCells, path];
         }
       }
       visitedDst[currCell.id] = true;
@@ -66,29 +61,14 @@ function bi_bfs(src, dst, grid) {
   return [orderedCells, []];
 }
 
-function buildPath(cell, predSrc, predDst) {
-  debugger;
-  const pred = [];
-  let prevCell = predSrc[cell.id];
-  let currCell = cell;
-  pred[currCell.id] = prevCell;
-  while (prevCell !== undefined) {
-    currCell = prevCell;
-    prevCell = predSrc[currCell.id];
-    pred[currCell.id] = prevCell;
-  }
-  prevCell = predDst[cell.id];
-  currCell = cell;
-  pred[prevCell.id] = currCell;
-  while (prevCell !== undefined) {
-    currCell = prevCell;
-    prevCell = predDst[currCell.id];
-    pred[currCell.id] = prevCell;
-  }
-  for (const cell of pred) {
-    console.log(cell);
-  }
-  return pred;
+function buildPathFromTwoPreds(cell, predSrc, predDst, src, dst) {
+  const srcPath = buildPath(predSrc, cell);
+  srcPath.push(cell);
+  const dstPath = buildPath(predDst, cell);
+  dstPath.shift();
+  dstPath.reverse();
+  const newPath = [...srcPath, ...dstPath];
+  return newPath;
 }
 
 export { bi_bfs };

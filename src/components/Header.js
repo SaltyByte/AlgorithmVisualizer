@@ -92,7 +92,7 @@ const Header = (props) => {
           className={!props.isRunning ? "select" : "select invalid"}
         >
           <option value="" disabled hidden>
-            Select Maze
+            Select Maze Generator
           </option>
           <option className="option" value="rand">
             Random Maze
@@ -129,6 +129,12 @@ const Header = (props) => {
           className={!props.isRunning ? "button" : "button invalid"}
         >
           Reset Visited Cells
+        </button>
+        <button
+          onClick={props.resetWalls}
+          className={!props.isRunning ? "button" : "button invalid"}
+        >
+          Reset Walls
         </button>
       </div>
     </div>

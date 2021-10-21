@@ -1,4 +1,4 @@
-import { findNeighbors, getDist as h } from "./utils";
+import { findNeighbors, getDist as h, buildPath } from "./utils";
 import PriorityQueue from "js-priority-queue";
 function aStar(src, dst, grid) {
   const orderedCells = []; // obj array
@@ -26,7 +26,8 @@ function aStar(src, dst, grid) {
     orderedCells.push(currCell);
     if (currCell.type === 2) {
       console.log("Found dst");
-      return [orderedCells, cameFrom];
+      const path = buildPath(cameFrom, dst);
+      return [orderedCells, path];
     }
     const neighbors = findNeighbors(currCell, grid, 3); // passing an object, avoid type 3, avoid walls
     for (const cell of neighbors) {

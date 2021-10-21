@@ -1,5 +1,5 @@
-import { findNeighbors } from "./utils";
-function bfs(src, grid) {
+import { findNeighbors, buildPath } from "./utils";
+function bfs(src, dst, grid) {
   console.log("BFSing");
   let size = grid[0].length * grid.length;
   const queue = []; // obj array
@@ -26,7 +26,8 @@ function bfs(src, grid) {
       if (cell.type === 2) {
         // type 2 end
         console.log("Found dst!");
-        return [orderedCells, pred];
+        const path = buildPath(pred, dst);
+        return [orderedCells, path];
       }
     }
     visited[currCell.id] = true;

@@ -42,4 +42,21 @@ function getDist(src, dst) {
   return 1.01 * (Math.abs(src.row - dst.row) + Math.abs(src.col - dst.col));
 }
 
-export { findNeighbors, getDist };
+function buildPath(pred, dst) {
+  if (pred.length === 0) {
+    return [];
+  }
+  let parent = pred[dst.id]; // obj cell
+  console.log(parent);
+  const path = [];
+  while (parent !== undefined) {
+    // loop to build path
+    path.push(parent);
+    parent = pred[parent.id];
+  }
+  path.reverse();
+  path.shift();
+  return path;
+}
+
+export { findNeighbors, getDist, buildPath };

@@ -39,6 +39,8 @@
   padding: 3px 10px;
   background-color: rgb(157, 216, 216);
   font-size: 17px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .button:hover {

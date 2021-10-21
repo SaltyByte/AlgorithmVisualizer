@@ -181,20 +181,10 @@ const Grid = forwardRef((props, ref) => {
     }
   };
 
-  const visualizePath = async (pred, dst) => {
-    if (pred.length === 0) {
+  const visualizePath = async (path) => {
+    if (path.length === 0) {
       return;
     }
-    let parent = pred[dst.id]; // obj cell
-    console.log(parent);
-    const path = [];
-    while (parent !== undefined) {
-      // loop to build path
-      path.push(parent);
-      parent = pred[parent.id];
-    }
-    path.reverse();
-    path.shift();
     for (const cell of path) {
       cell.type = 5;
       const newGrid = [...grid];
@@ -231,29 +221,29 @@ const Grid = forwardRef((props, ref) => {
     async visualize(algoType, speed) {
       props.setIsRunning(true);
       let orderedCells = [];
-      let pred = [];
+      let path = [];
       initSrcDstCells();
       cleanUp();
       switch (algoType) {
         case "a":
-          [orderedCells, pred] = aStar(srcCell, dstCell, grid);
+          [orderedCells, path] = aStar(srcCell, dstCell, grid);
           await runVisualize(orderedCells, speed);
-          await visualizePath(pred, dstCell);
+          await visualizePath(path, dstCell);
           break;
         case "bfs":
-          [orderedCells, pred] = bfs(srcCell, grid);
+          [orderedCells, path] = bfs(srcCell, dstCell, grid);
           await runVisualize(orderedCells, speed);
-          await visualizePath(pred, dstCell);
+          await visualizePath(path, dstCell);
           break;
         case "dfs":
-          [orderedCells, pred] = dfs(srcCell, grid);
+          [orderedCells, path] = dfs(srcCell, dstCell, grid);
           await runVisualize(orderedCells, speed);
-          await visualizePath(pred, dstCell);
+          await visualizePath(path, dstCell);
           break;
         case "bi_bfs":
-          [orderedCells, pred] = bi_bfs(srcCell, dstCell, grid);
+          [orderedCells, path] = bi_bfs(srcCell, dstCell, grid);
           await runVisualize(orderedCells, speed);
-          await visualizePath(pred, dstCell);
+          await visualizePath(path, dstCell);
           break;
         default:
           console.log("Nothing is selected algo");
@@ -300,6 +290,17 @@ const Grid = forwardRef((props, ref) => {
       for (const row of grid) {
         for (const cell of row) {
           if (cell.type === 4) {
+            cell.type = 0;
+          }
+        }
+      }
+      const newGrid = [...grid];
+      setGrid(newGrid);
+    },
+    resetWalls() {
+      for (const row of grid) {
+        for (const cell of row) {
+          if (cell.type === 3) {
             cell.type = 0;
           }
         }

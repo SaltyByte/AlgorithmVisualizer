@@ -1,6 +1,6 @@
-import { findNeighbors } from "./utils";
+import { findNeighbors, buildPath } from "./utils";
 
-function dfs(src, grid) {
+function dfs(src, dst, grid) {
   console.log("DFSing");
   const pred = []; // int array
   const orderedCells = []; // obj array
@@ -25,7 +25,8 @@ function dfs(src, grid) {
       }
     }
     if (currCell.type === 2) {
-      return [orderedCells, pred];
+      const path = buildPath(pred, dst);
+      return [orderedCells, path];
     }
   }
   return [orderedCells, []];

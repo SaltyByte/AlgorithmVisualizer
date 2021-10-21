@@ -35,6 +35,13 @@ function App() {
       console.log("reseting visited cells");
     }
   };
+  // this function resets walls.
+  const resetWalls = () => {
+    if (!isRunning) {
+      gridRef.current.resetWalls();
+      console.log("reseting walls");
+    }
+  };
 
   const getDataAndSendToVisualize = (algo, speed) => {
     gridRef.current.visualize(algo, speed);
@@ -51,6 +58,7 @@ function App() {
         reset={reset}
         resetPath={resetPath}
         resetVisitedCells={resetVisitedCells}
+        resetWalls={resetWalls}
         sendData={getDataAndSendToVisualize}
         sendMazeData={getMazeDataAndSendToGrid}
         isRunning={isRunning}
