@@ -109,27 +109,26 @@ const Header = (props) => {
           <option className="option" value="rand_dfs">
             Randomized Depth-First Search Algorithm
           </option>
-          <option className="option" value="rand_kruskal">
+          {/* <option className="option" value="rand_kruskal">
             Randomized Kruskal's Algorithm
           </option>
           <option className="option" value="rand_prim">
             Randomized Prim's Algorithm
-          </option>
+          </option> */}
           <option className="option" value="rec">
             Recursive Division Algorithm
           </option>
         </select>
       </div>
-      <div>
-        <button onClick={props.reset} className="button">
-          Reset Grid
+      <div className="button-div">
+        <button onClick={props.reset} className="button reset">
+          Reset
         </button>
-
         <button
-          onClick={props.resetPath}
+          onClick={props.clearPathAndVisitedCells}
           className={!props.isRunning ? "button" : "button invalid"}
         >
-          Reset Path
+          Clear Path & Visited Cells
         </button>
         <button
           className={!props.isRunning ? "button start" : "button invalid"}
@@ -138,16 +137,10 @@ const Header = (props) => {
           Start Visualization
         </button>
         <button
-          onClick={props.resetVisitedCells}
-          className={!props.isRunning ? "button" : "button invalid"}
-        >
-          Reset Visited Cells
-        </button>
-        <button
           onClick={props.resetWalls}
           className={!props.isRunning ? "button" : "button invalid"}
         >
-          Reset Walls
+          Clear Walls
         </button>
       </div>
     </div>

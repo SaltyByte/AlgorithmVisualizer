@@ -9,41 +9,66 @@ const loadContents = (counter) => {
           <header className="popup-header">
             Hello and welcome to the Pathfinding Visualizer
           </header>
+          <p>This quick tutorial will quide you how to use the application</p>
+          <p>To quit the tutorial simply press outside the popup window</p>
+          <p>So to get started Press the "Next" button to continue</p>
           <p>
-            This is a quick tutorial on how to use this application.
-            <br />
-            First select the algorithm you wish to visualize.
-            <br />
-            Then you can add walls (obstacles) with left mouse click and delete
-            walls with right mouse click.
-            <br />
-            Now press "Start Visualization" to start.
-            <br /> After the visualization finishes, you can reset the grid once
-            again with a click on the "Reset Grid" button.
-            <br />
-            Please use this application on a <b>computer</b> with{" "}
-            <b>fullscreen</b> on, otherwise this wont work as intended.
-            <br />
+            You can always go back to the previous page by pressing "Previous"
           </p>
-          <p>Have Fun!</p>
         </div>
       );
     case 1:
       return (
         <div>
-          <p>testing 1</p>
+          <p>Before we start, lets go over whats going on here</p>
+          <p>This application will visualize few pathfinding algorithms</p>
+          <p>
+            Those algorithms are: Breath-First Search, Depth-First Search, A
+            Star Search and Bi-Directional Search
+          </p>
+          <p>
+            Here you can also find few maze generating algoritms which are:
+            Randomized Basic Maze, Randomized Depth-First Search and Randomized
+            Recursive Maze Generator
+          </p>
         </div>
       );
     case 2:
       return (
         <div>
-          <p>testing 2</p>
+          <p>Each algorithm will show how its spreading across the grid</p>
+          <p>
+            When the ending point is found, the algorithm will stop spreading
+            and will show the path to the ending point
+          </p>
         </div>
       );
     case 3:
       return (
         <div>
-          <p>testing 3</p>
+          <p>
+            Here you can move the starting and ending points by simply dragging
+            with left mouse button the points around
+          </p>
+          <p>To add walls press the left mouse click</p>
+          <p>To delete walls press right mouse click</p>
+          <p>
+            After you're satisfied with what you have created, choose an
+            algorithm to visualize and press "Start Visualization"
+          </p>
+        </div>
+      );
+    case 4:
+      return (
+        <div>
+          <p>
+            Here you can change the speed of the algorithms, both maze
+            generating algorithms and the path finding algorithms
+          </p>
+          <p>You can also find Reset button which will reset the whole grid</p>
+          <p>Clear path & visited cells will do exactly what it says</p>
+          <p>And clear walls will clear all the walls on the grid</p>
+          <p>Have Fun Visualizing</p>
         </div>
       );
     default:

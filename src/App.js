@@ -7,7 +7,7 @@ import React, { useState, useRef } from "react";
 function App() {
   // this is to use the reset function from child, this can basicly use all child function
   const gridRef = useRef();
-  const [rowSize, setRowSize] = useState(53);
+  const [rowSize, setRowSize] = useState(55);
   const [colSize, setColSize] = useState(21);
   const [openPopup, setOpenPopup] = useState(true);
   const [isRunning, setIsRunning] = useState(false);
@@ -20,18 +20,10 @@ function App() {
     console.log("reseting");
   };
 
-  // this function resets path.
-  const resetPath = () => {
-    if (!isRunning) {
-      gridRef.current.resetPath();
-      console.log("reseting path");
-    }
-  };
-
   // this function resets visited cells.
-  const resetVisitedCells = () => {
+  const clearPathAndVisitedCells = () => {
     if (!isRunning) {
-      gridRef.current.resetVisitedCells();
+      gridRef.current.clearPathAndVisitedCells();
       console.log("reseting visited cells");
     }
   };
@@ -56,8 +48,7 @@ function App() {
         updateRow={setRowSize}
         updateCol={setColSize}
         reset={reset}
-        resetPath={resetPath}
-        resetVisitedCells={resetVisitedCells}
+        clearPathAndVisitedCells={clearPathAndVisitedCells}
         resetWalls={resetWalls}
         sendData={getDataAndSendToVisualize}
         sendMazeData={getMazeDataAndSendToGrid}

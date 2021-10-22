@@ -190,7 +190,6 @@ const Grid = forwardRef((props, ref) => {
     }
   };
   const runVisualize = async (orderedCells, speed) => {
-    console.log(speed);
     if (speed !== -1) {
       for (const cell of orderedCells) {
         if (cell.type === 0 || cell.type === 99) {
@@ -320,21 +319,10 @@ const Grid = forwardRef((props, ref) => {
       }
       props.setIsRunning(false);
     },
-    resetPath() {
+    clearPathAndVisitedCells() {
       for (const row of grid) {
         for (const cell of row) {
-          if (cell.type === 5) {
-            cell.type = 0;
-          }
-        }
-      }
-      const newGrid = [...grid];
-      setGrid(newGrid);
-    },
-    resetVisitedCells() {
-      for (const row of grid) {
-        for (const cell of row) {
-          if (cell.type === 4) {
+          if (cell.type === 4 || cell.type === 5) {
             cell.type = 0;
           }
         }

@@ -33,14 +33,15 @@
 }
 
 .button {
+  position: relative;
   text-align: center;
   border-radius: 10px;
   border: 0px solid black;
   padding: 3px 10px;
   background-color: rgb(157, 216, 216);
   font-size: 17px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .button:hover {
@@ -49,16 +50,32 @@
   animation: fade-animation;
   animation-duration: 0.5s;
 }
+.button-div {
+  position: relative;
+}
+.reset {
+  float: right;
+  background-color: rgb(243, 176, 122);
+}
+.reset:hover {
+  background-color: rgb(241, 191, 147);
+  animation: reset-animation;
+  animation-duration: 0.5s;
+}
 
 .popup-next {
   position: absolute;
   left: 830px;
   bottom: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 .popup-prev {
   position: absolute;
   left: 15px;
   bottom: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 p {
@@ -88,7 +105,8 @@ p {
   background-color: rgb(157, 216, 216);
   border: 0px;
   outline: 0px;
-  margin: 7px;
+  margin-right: 15px;
+  margin-left: 15px;
   border-radius: 10px;
 }
 .alert {
@@ -126,8 +144,14 @@ p {
   }
 }
 
-.option {
-  background-color: rgb(189, 243, 243);
+/* select animnation */
+@keyframes reset-animation {
+  from {
+    background-color: rgb(243, 176, 122);
+  }
+  to {
+    background-color: rgb(241, 191, 147);
+  }
 }
 
 .option {
