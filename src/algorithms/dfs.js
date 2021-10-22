@@ -22,11 +22,11 @@ function dfs(src, dst, grid) {
           stack.push(cell);
           pred[cell.id] = currCell;
         }
+        if (cell.type === 2) {
+          const path = buildPath(pred, dst);
+          return [orderedCells, path];
+        }
       }
-    }
-    if (currCell.type === 2) {
-      const path = buildPath(pred, dst);
-      return [orderedCells, path];
     }
   }
   return [orderedCells, []];

@@ -5,13 +5,14 @@ import React, {
   useEffect,
 } from "react";
 import Cell from "./Cell";
-import "../css/style.css";
+import "../css/styles.css";
 import { bfs } from "../algorithms/bfs";
 import { dfs } from "../algorithms/dfs";
 import { aStar } from "../algorithms/aStar";
 import { bi_bfs } from "../algorithms/bi_bfs";
 import { randomMaze } from "../algorithms/randomMaze";
 import { dfsMaze } from "../algorithms/dfsMaze";
+import { recursiveMaze } from "../algorithms/recursiveMaze";
 
 const sleep = (milliseconds) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -146,38 +147,67 @@ const Grid = forwardRef((props, ref) => {
     console.log("generating full wall maze");
     const newGrid = [...grid];
     setGrid(newGrid);
-    for (const cell of orderedCells) {
-      if (cell.type === 3) {
-        cell.type = 0;
-        const newGrid = [...grid];
-        setGrid(newGrid);
-        await sleep(speed);
+    if (speed !== -1) {
+      for (const cell of orderedCells) {
+        if (cell.type === 3) {
+          cell.type = 0;
+          const newGrid = [...grid];
+          setGrid(newGrid);
+          await sleep(speed);
+        }
       }
+    } else {
+      for (const cell of orderedCells) {
+        if (cell.type === 3) {
+          cell.type = 0;
+        }
+      }
+      const newGrid = [...grid];
+      setGrid(newGrid);
     }
   };
 
   // this gets empty grid and will fill with walls
   const visualizeEmptyMazeBuild = async (orderedCells, speed) => {
     console.log("generating empty wall maze");
-    for (const cell of orderedCells) {
-      if (cell.type === 0 || cell.type === 99) {
-        cell.type = 3;
-        const newGrid = [...grid];
-        setGrid(newGrid);
-        if (speed !== 0) {
+    if (speed !== -1) {
+      for (const cell of orderedCells) {
+        if (cell.type === 0 || cell.type === 99) {
+          cell.type = 3;
+          const newGrid = [...grid];
+          setGrid(newGrid);
           await sleep(speed);
         }
       }
+    } else {
+      for (const cell of orderedCells) {
+        if (cell.type === 0 || cell.type === 99) {
+          cell.type = 3;
+        }
+      }
+      const newGrid = [...grid];
+      setGrid(newGrid);
     }
   };
   const runVisualize = async (orderedCells, speed) => {
-    for (const cell of orderedCells) {
-      if (cell.type === 0 || cell.type === 99) {
-        cell.type = 4;
-        const newGrid = [...grid];
-        setGrid(newGrid);
-        await sleep(speed);
+    console.log(speed);
+    if (speed !== -1) {
+      for (const cell of orderedCells) {
+        if (cell.type === 0 || cell.type === 99) {
+          cell.type = 4;
+          const newGrid = [...grid];
+          setGrid(newGrid);
+          await sleep(speed);
+        }
       }
+    } else {
+      for (const cell of orderedCells) {
+        if (cell.type === 0 || cell.type === 99) {
+          cell.type = 4;
+        }
+      }
+      const newGrid = [...grid];
+      setGrid(newGrid);
     }
   };
 
@@ -203,14 +233,24 @@ const Grid = forwardRef((props, ref) => {
         }
       }
       if (srcCell !== undefined && dstCell !== undefined) {
-        break;
+        return;
       }
     }
   };
-  const cleanUp = () => {
+  const cleanUpBeforeAlgorithm = () => {
     for (const row of grid) {
       for (const cell of row) {
         if (cell.type === 4 || cell.type === 5) {
+          cell.type = 0;
+        }
+      }
+    }
+  };
+
+  const cleanUpBeforeMaze = () => {
+    for (const row of grid) {
+      for (const cell of row) {
+        if (cell.type !== 1 && cell.type !== 2) {
           cell.type = 0;
         }
       }
@@ -222,27 +262,28 @@ const Grid = forwardRef((props, ref) => {
       props.setIsRunning(true);
       let orderedCells = [];
       let path = [];
+      let intSpeed = parseInt(speed);
       initSrcDstCells();
-      cleanUp();
+      cleanUpBeforeAlgorithm();
       switch (algoType) {
         case "a":
           [orderedCells, path] = aStar(srcCell, dstCell, grid);
-          await runVisualize(orderedCells, speed);
+          await runVisualize(orderedCells, intSpeed);
           await visualizePath(path, dstCell);
           break;
         case "bfs":
           [orderedCells, path] = bfs(srcCell, dstCell, grid);
-          await runVisualize(orderedCells, speed);
+          await runVisualize(orderedCells, intSpeed);
           await visualizePath(path, dstCell);
           break;
         case "dfs":
           [orderedCells, path] = dfs(srcCell, dstCell, grid);
-          await runVisualize(orderedCells, speed);
+          await runVisualize(orderedCells, intSpeed);
           await visualizePath(path, dstCell);
           break;
         case "bi_bfs":
           [orderedCells, path] = bi_bfs(srcCell, dstCell, grid);
-          await runVisualize(orderedCells, speed);
+          await runVisualize(orderedCells, intSpeed);
           await visualizePath(path, dstCell);
           break;
         default:
@@ -250,25 +291,29 @@ const Grid = forwardRef((props, ref) => {
       }
       props.setIsRunning(false);
     },
-    async generateMaze(mazeType) {
+    async generateMaze(mazeType, speed) {
       let orderedCells = [];
+      let intSpeed = parseInt(speed);
       props.setIsRunning(true);
       initSrcDstCells();
-      cleanUp();
+      cleanUpBeforeMaze();
       switch (mazeType) {
         case "rand":
           orderedCells = randomMaze(grid);
-          // speed of maze generator is 0
-          await visualizeEmptyMazeBuild(orderedCells, 0);
+          // speed of maze generator is instant
+          await visualizeEmptyMazeBuild(orderedCells, -1);
           break;
         case "rand_dfs":
-          orderedCells = dfsMaze(grid, srcCell, dstCell);
-          // speed of maze generator is 10
-          await visualizeFullMazeBuild(orderedCells, 10);
+          orderedCells = dfsMaze(grid);
+          await visualizeFullMazeBuild(orderedCells, intSpeed);
           break;
         case "rand_kruskal":
           break;
         case "rand_prim":
+          break;
+        case "rec":
+          orderedCells = recursiveMaze(grid);
+          await visualizeEmptyMazeBuild(orderedCells, intSpeed);
           break;
         default:
           console.log("Nothing is selected maze");

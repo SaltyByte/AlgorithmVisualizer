@@ -46,8 +46,8 @@ function App() {
   const getDataAndSendToVisualize = (algo, speed) => {
     gridRef.current.visualize(algo, speed);
   };
-  const getMazeDataAndSendToGrid = (maze) => {
-    gridRef.current.generateMaze(maze);
+  const getMazeDataAndSendToGrid = (maze, speed) => {
+    gridRef.current.generateMaze(maze, speed);
   };
   return (
     <div className="App">

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PopupContents from "./PopupContent";
+import "../css/styles.css";
 
 const MyPopup = (props) => {
   const [counter, setCounter] = useState(0);

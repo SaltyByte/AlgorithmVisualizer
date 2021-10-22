@@ -47,7 +47,6 @@ function buildPath(pred, dst) {
     return [];
   }
   let parent = pred[dst.id]; // obj cell
-  console.log(parent);
   const path = [];
   while (parent !== undefined) {
     // loop to build path

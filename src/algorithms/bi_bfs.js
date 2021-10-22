@@ -51,7 +51,7 @@ function bi_bfs(src, dst, grid) {
         if (visitedSrc[cell.id]) {
           console.log("Found path dst!");
           orderedCells.push(cell);
-          const path = buildPathFromTwoPreds(cell, predSrc, predDst, src, dst);
+          const path = buildPathFromTwoPreds(cell, predSrc, predDst);
           return [orderedCells, path];
         }
       }
@@ -61,7 +61,7 @@ function bi_bfs(src, dst, grid) {
   return [orderedCells, []];
 }
 
-function buildPathFromTwoPreds(cell, predSrc, predDst, src, dst) {
+function buildPathFromTwoPreds(cell, predSrc, predDst) {
   const srcPath = buildPath(predSrc, cell);
   srcPath.push(cell);
   const dstPath = buildPath(predDst, cell);

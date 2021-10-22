@@ -83,7 +83,6 @@ p {
 
 .select {
   font-size: 18px;
-  width: 310px;
   height: 40px;
   text-align: left;
   background-color: rgb(157, 216, 216);
@@ -92,12 +91,17 @@ p {
   margin: 7px;
   border-radius: 10px;
 }
+.alert {
+  animation: alert-animation;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+}
 
 .select:hover {
   cursor: pointer;
   background-color: rgb(189, 243, 243);
   animation: fade-animation;
-  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
 }
 
 /* select animnation */
@@ -108,6 +112,22 @@ p {
   to {
     background-color: rgb(189, 243, 243);
   }
+}
+
+@keyframes alert-animation {
+  0% {
+    background-color: rgb(157, 216, 216);
+  }
+  50% {
+    background-color: rgb(189, 243, 243);
+  }
+  100% {
+    background-color: rgb(157, 216, 216);
+  }
+}
+
+.option {
+  background-color: rgb(189, 243, 243);
 }
 
 .option {
@@ -122,6 +142,26 @@ p {
   background-color: rgb(226, 156, 156);
   animation: none;
   cursor: default;
+}
+.start {
+  background-color: rgb(134, 248, 178);
+}
+
+.start:hover {
+  cursor: pointer;
+  background-color: rgb(84, 243, 145);
+  animation: start-animation;
+  animation-duration: 0.5s;
+}
+
+/* select animnation */
+@keyframes start-animation {
+  from {
+    background-color: rgb(134, 248, 178);
+  }
+  to {
+    background-color: rgb(84, 243, 145);
+  }
 }
 /* regular cell after init*/
 .cell-0 {
