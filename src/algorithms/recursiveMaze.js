@@ -1,48 +1,85 @@
-import { findNeighbors } from "./utils";
-
 function recursiveMaze(grid) {
   let colSize = grid[0].length;
   let rowSize = grid.length;
   const orderedCells = [];
-  recMaze(orderedCells, rowSize, colSize, grid);
+  recMaze(orderedCells, 0, 0, rowSize, colSize, grid);
   return orderedCells;
 }
 
-function recMaze(orderedCells, row, col, grid) {
-  if (row < 4 || col < 4) {
+function recMaze(orderedCells, rowSrc, colSrc, rowDst, colDst, grid) {
+  if (rowDst - rowSrc < 3 || colDst - colSrc < 3) {
     return;
   }
   // 1 === horizontal, 0 === vertical
   let orientation = Math.floor(Math.random() * 2);
   console.log("orientation: " + orientation);
   if (orientation === 1) {
-    let randIndRow = Math.floor(Math.random() * row);
-    wallBuilder(orderedCells, orientation, randIndRow, col, grid);
-    recMaze(orderedCells, randIndRow, col, grid);
+    let randIndRow = Math.floor(Math.random() * (rowDst - rowSrc) + rowSrc);
+    while (randIndRow % 2 === 0) {
+      randIndRow = Math.floor(Math.random() * (rowDst - rowSrc) + rowSrc);
+    }
+    wallBuilder(
+      orderedCells,
+      orientation,
+      rowSrc,
+      colSrc,
+      randIndRow,
+      colDst,
+      grid
+    );
+    recMaze(orderedCells, rowSrc, colSrc, randIndRow, colDst, grid);
+    recMaze(orderedCells, randIndRow + 1, colSrc, rowDst, colDst, grid);
   } else {
-    let randIndCol = Math.floor(Math.random() * col);
-    wallBuilder(orderedCells, orientation, row, randIndCol, grid);
-    recMaze(orderedCells, row, randIndCol, grid);
+    let randIndCol = Math.floor(Math.random() * (colDst - colSrc) + colSrc);
+    while (randIndCol % 2 === 0) {
+      randIndCol = Math.floor(Math.random() * (colDst - colSrc) + colSrc);
+    }
+    wallBuilder(
+      orderedCells,
+      orientation,
+      rowSrc,
+      colSrc,
+      rowDst,
+      randIndCol,
+      grid
+    );
+    recMaze(orderedCells, rowSrc, colSrc, rowDst, randIndCol, grid);
+    recMaze(orderedCells, rowSrc, randIndCol + 1, rowDst, colDst, grid);
   }
 }
 
-// works
-function wallBuilder(orderedCells, orientation, row, col, grid) {
+function wallBuilder(
+  orderedCells,
+  orientation,
+  rowMin,
+  colMin,
+  rowMax,
+  colMax,
+  grid
+) {
   if (orientation === 1) {
-    let randWallBreakCol = Math.floor(Math.random() * col);
-    for (let i = 0; i < col; i++) {
+    let randWallBreakCol = Math.floor(
+      Math.random() * (colMax - colMin) + colMin
+    );
+    while (randWallBreakCol % 2 !== 0) {
+      randWallBreakCol = Math.floor(Math.random() * (colMax - colMin) + colMin);
+    }
+    for (let i = colMin; i < colMax; i++) {
       if (randWallBreakCol !== i) {
-        const currCell = grid[row][i];
-        console.log(currCell);
+        const currCell = grid[rowMax][i];
         orderedCells.push(currCell);
       }
     }
   } else {
-    let randWallBreakRow = Math.floor(Math.random() * col);
-    for (let i = 0; i < row; i++) {
+    let randWallBreakRow = Math.floor(
+      Math.random() * (rowMax - rowMin) + rowMin
+    );
+    while (randWallBreakRow % 2 !== 0) {
+      randWallBreakRow = Math.floor(Math.random() * (rowMax - rowMin) + rowMin);
+    }
+    for (let i = rowMin; i < rowMax; i++) {
       if (randWallBreakRow !== i) {
-        const currCell = grid[i][col];
-        console.log(currCell);
+        const currCell = grid[i][colMax];
         orderedCells.push(currCell);
       }
     }
