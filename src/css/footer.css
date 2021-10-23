@@ -1,0 +1,36 @@
+.footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  user-select: none;
+  text-align: center;
+  font-size: 13px;
+  background-color: rgb(157, 216, 216);
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+.hyperlink {
+  margin-right: 15px;
+  text-decoration: none;
+  color: rgb(11, 77, 121);
+}
+
+.hyperlink:visited {
+  text-decoration: none;
+  color: rgb(11, 77, 121);
+}
+.hyperlink:hover {
+  text-decoration: none;
+  color: rgb(141, 187, 218);
+}
+.hyperlink:focus {
+  text-decoration: none;
+  color: rgb(141, 187, 218);
+}
+.hyperlink:hover,
+a:active {
+  text-decoration: none;
+  color: rgb(141, 187, 218);
+}

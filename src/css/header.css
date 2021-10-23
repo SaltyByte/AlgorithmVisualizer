@@ -1,0 +1,131 @@
+.button {
+  position: relative;
+  text-align: center;
+  border-radius: 10px;
+  border: 0px solid black;
+  padding: 3px 10px;
+  background-color: rgb(157, 216, 216);
+  font-size: 17px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: rgb(189, 243, 243);
+  animation: fade-animation;
+  animation-duration: 0.5s;
+}
+.button-div {
+  position: relative;
+}
+.reset {
+  float: right;
+  background-color: rgb(243, 176, 122);
+}
+.reset:hover {
+  background-color: rgb(241, 191, 147);
+  animation: reset-animation;
+  animation-duration: 0.5s;
+}
+
+.header {
+  text-align: center;
+  font-size: 16px;
+  padding: 5px;
+  background-color: rgb(157, 216, 216);
+  border-radius: 20px;
+  margin-bottom: 10px;
+  user-select: none;
+}
+
+.select {
+  font-size: 18px;
+  height: 40px;
+  text-align: left;
+  background-color: rgb(157, 216, 216);
+  border: 0px;
+  outline: 0px;
+  margin-right: 15px;
+  margin-left: 15px;
+  border-radius: 10px;
+}
+.alert {
+  animation: alert-animation;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+}
+
+.select:hover {
+  cursor: pointer;
+  background-color: rgb(189, 243, 243);
+  animation: fade-animation;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes alert-animation {
+  0% {
+    background-color: rgb(157, 216, 216);
+  }
+  50% {
+    background-color: rgb(189, 243, 243);
+  }
+  100% {
+    background-color: rgb(157, 216, 216);
+  }
+}
+
+/* select animnation */
+@keyframes reset-animation {
+  from {
+    background-color: rgb(243, 176, 122);
+  }
+  to {
+    background-color: rgb(241, 191, 147);
+  }
+}
+
+.option {
+  background-color: rgb(189, 243, 243);
+}
+
+.invalid {
+  background-color: rgb(226, 156, 156);
+}
+
+.invalid:hover {
+  background-color: rgb(226, 156, 156);
+  animation: none;
+  cursor: default;
+}
+.start {
+  background-color: rgb(108, 238, 158);
+}
+
+.start:hover {
+  cursor: pointer;
+  background-color: rgb(156, 243, 189);
+  animation: start-animation;
+  animation-duration: 0.5s;
+}
+
+/* select animnation */
+@keyframes start-animation {
+  from {
+    background-color: rgb(108, 238, 158);
+  }
+  to {
+    background-color: rgb(156, 243, 189);
+  }
+}
+
+/* select animnation */
+@keyframes fade-animation {
+  from {
+    background-color: rgb(157, 216, 216);
+  }
+  to {
+    background-color: rgb(189, 243, 243);
+  }
+}

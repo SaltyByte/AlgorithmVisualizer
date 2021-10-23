@@ -1,4 +1,3 @@
-import "../css/styles.css";
 import React from "react";
 
 const preventDragHandler = (e) => {

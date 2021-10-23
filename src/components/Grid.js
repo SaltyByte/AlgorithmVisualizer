@@ -5,7 +5,7 @@ import React, {
   useEffect,
 } from "react";
 import Cell from "./Cell";
-import "../css/styles.css";
+import "../css/grid.css";
 import { bfs } from "../algorithms/bfs";
 import { dfs } from "../algorithms/dfs";
 import { aStar } from "../algorithms/aStar";
@@ -148,7 +148,9 @@ const Grid = forwardRef((props, ref) => {
     const newGrid = [...grid];
     setGrid(newGrid);
     if (speed !== -1) {
-      for (const cell of orderedCells) {
+      //for (const cell of orderedCells) {
+      for (let i = 0; i < orderedCells.length; i++) {
+        let cell = orderedCells[i];
         if (cell.type === 3) {
           cell.type = 0;
           const newGrid = [...grid];
@@ -171,7 +173,9 @@ const Grid = forwardRef((props, ref) => {
   const visualizeEmptyMazeBuild = async (orderedCells, speed) => {
     console.log("generating empty wall maze");
     if (speed !== -1) {
-      for (const cell of orderedCells) {
+      //for (const cell of orderedCells) {
+      for (let i = 0; i < orderedCells.length; i++) {
+        let cell = orderedCells[i];
         if (cell.type === 0 || cell.type === 99) {
           cell.type = 3;
           const newGrid = [...grid];
@@ -191,7 +195,9 @@ const Grid = forwardRef((props, ref) => {
   };
   const runVisualize = async (orderedCells, speed) => {
     if (speed !== -1) {
-      for (const cell of orderedCells) {
+      //for (const cell of orderedCells) {
+      for (let i = 0; i < orderedCells.length; i++) {
+        let cell = orderedCells[i];
         if (cell.type === 0 || cell.type === 99) {
           cell.type = 4;
           const newGrid = [...grid];
@@ -214,7 +220,9 @@ const Grid = forwardRef((props, ref) => {
     if (path.length === 0) {
       return;
     }
-    for (const cell of path) {
+    //for (const cell of path) {
+    for (let i = 0; i < path.length; i++) {
+      let cell = path[i];
       cell.type = 5;
       const newGrid = [...grid];
       setGrid(newGrid);

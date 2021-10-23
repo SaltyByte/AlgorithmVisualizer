@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // import Select from "react-select";
-import "../css/styles.css";
+import "../css/header.css";
 
 /* <Select
           placeholder="Select Algorithm"
@@ -56,6 +56,7 @@ const Header = (props) => {
           onChange={handleAlgoSelectOnChange}
           className={algorithmAlert ? "select alert" : "select"}
           onAnimationEnd={() => setAlgorithmAlert(false)}
+          disabled={props.isRunning ? "disabled" : ""}
         >
           <option value="" disabled hidden>
             Select Algorithm
@@ -77,18 +78,19 @@ const Header = (props) => {
           required
           value={selectedSpeed}
           onChange={handleSpeedSelectOnChange}
-          className={!props.isRunning ? "select" : "select invalid"}
+          className="select"
+          disabled={props.isRunning ? "disabled" : ""}
         >
-          <option className="option" value="5">
+          <option className="option" value="10">
             Faster
           </option>
-          <option className="option" value="15">
+          <option className="option" value="30">
             Fast
           </option>
           <option className="option" value="50">
             Normal
           </option>
-          <option className="option" value="100">
+          <option className="option" value="120">
             Slow
           </option>
           <option className="option" value="-1">
@@ -98,7 +100,8 @@ const Header = (props) => {
         <select
           value={""}
           onChange={handleMazeSelectOnChange}
-          className={!props.isRunning ? "select" : "select invalid"}
+          className="select"
+          disabled={props.isRunning ? "disabled" : ""}
         >
           <option value="" disabled hidden>
             Select Maze Generator

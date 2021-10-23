@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PopupContents from "./PopupContent";
-import "../css/styles.css";
+import "../css/popup.css";
 
 const MyPopup = (props) => {
   const [counter, setCounter] = useState(0);
@@ -24,12 +24,16 @@ const MyPopup = (props) => {
       <div className="popup" onClick={closePopup}></div>
       <div className="popup-inner">
         <PopupContents counter={counter} />
-        <button className="button popup-next" onClick={handleNext}>
-          Next
-        </button>
-        <button className="button popup-prev" onClick={handlePrev}>
-          Previous
-        </button>
+        {counter < 4 ? (
+          <button className="button popup-next" onClick={handleNext}>
+            Next
+          </button>
+        ) : null}
+        {counter > 0 ? (
+          <button className="button popup-prev" onClick={handlePrev}>
+            Previous
+          </button>
+        ) : null}
       </div>
     </div>
   );

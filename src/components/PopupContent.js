@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/styles.css";
+import "../css/popup.css";
 
 const loadContents = (counter) => {
   switch (counter) {
@@ -14,6 +14,10 @@ const loadContents = (counter) => {
           <p>So to get started Press the "Next" button to continue</p>
           <p>
             You can always go back to the previous page by pressing "Previous"
+          </p>
+          <p>
+            Please use a <b>computer</b> with <b>fullscreen</b> on, else the
+            application will not work as intended
           </p>
         </div>
       );
@@ -40,6 +44,10 @@ const loadContents = (counter) => {
           <p>
             When the ending point is found, the algorithm will stop spreading
             and will show the path to the ending point
+          </p>
+          <p>
+            When no edning point is found, simply the algorithm will stop when
+            theres no new cells to explore
           </p>
         </div>
       );
@@ -69,6 +77,7 @@ const loadContents = (counter) => {
           <p>Clear path & visited cells will do exactly what it says</p>
           <p>And clear walls will clear all the walls on the grid</p>
           <p>Have Fun Visualizing</p>
+          <p>To start visualizing press outside the popup</p>
         </div>
       );
     default:

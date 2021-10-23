@@ -1,0 +1,193 @@
+/* regular cell after init*/
+.cell-0 {
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  outline: 1px solid rgba(179, 238, 238, 0.75);
+  display: flex;
+  border-radius: 5px;
+}
+
+/* regular cell after wall deleted so we could animate deletion*/
+.cell-99 {
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  outline: 1px solid rgba(179, 238, 238, 0.75);
+  display: flex;
+  border-radius: 5px;
+  animation-name: cell-animation;
+  animation-duration: 0.15s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+/* Cell animnation */
+@keyframes cell-animation {
+  0% {
+    background-color: rgb(58, 56, 56);
+    border-radius: 4px;
+    transform: scale(1);
+  }
+  25% {
+    background-color: rgb(58, 56, 56);
+    border-radius: 7px;
+    transform: scale(0.7);
+  }
+  75% {
+    border-radius: 15px;
+    transform: scale(0.4);
+  }
+  100% {
+    border-radius: 30px;
+    transform: scale(0.2);
+  }
+}
+/* start cell */
+.cell-1 {
+  border-radius: 5px;
+  width: 25px;
+  height: 25px;
+  outline: 1px solid rgba(179, 238, 238, 0.75);
+  display: flex;
+  background-color: rgb(31, 199, 143);
+  animation-name: cell-move;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+/* end cell */
+.cell-2 {
+  border-radius: 5px;
+  width: 25px;
+  height: 25px;
+  outline: 1px solid rgba(179, 238, 238, 0.75);
+  display: flex;
+  background-color: rgb(235, 124, 124);
+  animation-name: cell-move;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+@keyframes cell-move {
+  0% {
+    border-radius: 30px;
+    transform: scale(0.2);
+  }
+  25% {
+    border-radius: 15px;
+    transform: scale(0.5);
+  }
+  75% {
+    border-radius: 5px;
+    transform: scale(1.2);
+  }
+  100% {
+    border-radius: 2px;
+    transform: scale(1);
+  }
+}
+
+/* wall cell */
+.cell-3 {
+  border-radius: 5px;
+  width: 25px;
+  height: 25px;
+  outline: 1px solid rgba(179, 238, 238, 0.75);
+  display: flex;
+  background-color: rgb(58, 56, 56);
+  animation-name: wall-animation;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+@keyframes wall-animation {
+  0% {
+    border-radius: 30px;
+    transform: scale(0.2);
+  }
+  25% {
+    border-radius: 15px;
+    transform: scale(0.5);
+  }
+  75% {
+    border-radius: 5px;
+    transform: scale(1.2);
+  }
+  100% {
+    border-radius: 2px;
+    transform: scale(1);
+  }
+}
+/* visited cell */
+.cell-4 {
+  border-radius: 5px;
+  width: 25px;
+  height: 25px;
+  outline: 1px solid rgba(179, 238, 238, 0.75);
+  display: flex;
+  background-color: rgb(236, 188, 236);
+  animation-name: visited-animation;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+@keyframes visited-animation {
+  0% {
+    transform: scale(0.2);
+    background-color: rgb(129, 245, 220);
+    border-radius: 30px;
+  }
+  25% {
+    transform: scale(0.4);
+    background-color: rgb(99, 82, 245);
+    border-radius: 15px;
+  }
+  75% {
+    transform: scale(0.7);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/* path */
+.cell-5 {
+  border-radius: 5px;
+  width: 25px;
+  height: 25px;
+  outline: 1px solid rgba(179, 238, 238, 0.75);
+  display: flex;
+  background-color: rgb(243, 183, 87);
+  animation-name: path-animation;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+@keyframes path-animation {
+  0% {
+    transform: scale(0.2);
+    background-color: rgb(244, 253, 158);
+    border-radius: 30px;
+  }
+  25% {
+    transform: scale(0.4);
+    border-radius: 15px;
+  }
+  75% {
+    transform: scale(0.7);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.grid {
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  position: relative;
+  outline: 2px solid rgba(179, 238, 238, 0.75);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
