@@ -3,6 +3,7 @@ import React, {
   useImperativeHandle,
   useState,
   useEffect,
+  useRef,
 } from "react";
 import Cell from "./Cell";
 import "../css/grid.css";
@@ -35,12 +36,12 @@ const Grid = forwardRef((props, ref) => {
   const [grid, setGrid] = useState([]);
   const [clickedToMove, setClickedToMove] = useState(false);
   const [movingCell, setMovingCell] = useState(undefined);
+  const _isMounted = useRef(false); // Initial value _isMounted = true
   let srcCell = undefined;
   let dstCell = undefined;
   // each cell size 25 by 25 px
   const cellSize = 25;
-  // this is called only one after initial loading
-  useEffect(() => {
+  const initGrid = () => {
     console.log("Init grid");
     const newGrid = [];
     for (let i = 0; i < props.row; i++) {
@@ -71,8 +72,7 @@ const Grid = forwardRef((props, ref) => {
       newGrid.push(row);
     }
     setGrid(newGrid);
-    // eslint-disable-next-line
-  }, []);
+  };
 
   const swapCellsType = (src, dst) => {
     let temp = dst.type;
@@ -148,9 +148,11 @@ const Grid = forwardRef((props, ref) => {
     const newGrid = [...grid];
     setGrid(newGrid);
     if (speed !== -1) {
-      //for (const cell of orderedCells) {
-      for (let i = 0; i < orderedCells.length; i++) {
-        let cell = orderedCells[i];
+      for (const cell of orderedCells) {
+        if (!_isMounted.current) {
+          console.log("returning");
+          return;
+        }
         if (cell.type === 3) {
           cell.type = 0;
           const newGrid = [...grid];
@@ -173,9 +175,11 @@ const Grid = forwardRef((props, ref) => {
   const visualizeEmptyMazeBuild = async (orderedCells, speed) => {
     console.log("generating empty wall maze");
     if (speed !== -1) {
-      //for (const cell of orderedCells) {
-      for (let i = 0; i < orderedCells.length; i++) {
-        let cell = orderedCells[i];
+      for (const cell of orderedCells) {
+        if (!_isMounted.current) {
+          console.log("returning");
+          return;
+        }
         if (cell.type === 0 || cell.type === 99) {
           cell.type = 3;
           const newGrid = [...grid];
@@ -195,9 +199,11 @@ const Grid = forwardRef((props, ref) => {
   };
   const runVisualize = async (orderedCells, speed) => {
     if (speed !== -1) {
-      //for (const cell of orderedCells) {
-      for (let i = 0; i < orderedCells.length; i++) {
-        let cell = orderedCells[i];
+      for (const cell of orderedCells) {
+        if (!_isMounted.current) {
+          console.log("returning");
+          return;
+        }
         if (cell.type === 0 || cell.type === 99) {
           cell.type = 4;
           const newGrid = [...grid];
@@ -220,9 +226,11 @@ const Grid = forwardRef((props, ref) => {
     if (path.length === 0) {
       return;
     }
-    //for (const cell of path) {
-    for (let i = 0; i < path.length; i++) {
-      let cell = path[i];
+    for (const cell of path) {
+      if (!_isMounted.current) {
+        console.log("returning");
+        return;
+      }
       cell.type = 5;
       const newGrid = [...grid];
       setGrid(newGrid);
@@ -350,6 +358,17 @@ const Grid = forwardRef((props, ref) => {
       setGrid(newGrid);
     },
   }));
+
+  // this is called only one after initial loading
+  useEffect(() => {
+    _isMounted.current = true;
+    initGrid();
+    return () => {
+      // ComponentWillUnmount in Class Component
+      _isMounted.current = false;
+    };
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div
